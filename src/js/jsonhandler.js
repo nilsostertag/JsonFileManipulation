@@ -5,22 +5,29 @@ function addContentFooter() {
     contentFooter.className = 'contentFooter';
 
     const btnDownload = document.createElement('button');
-    
-    btnDownload.className = 'btn_download';
+    btnDownload.textContent = 'Download';
+    btnDownload.onclick = '';
 
     contentFooter.appendChild(btnDownload);
+    content.appendChild(contentFooter);
 }
 
 function displayData(data) {
-    //var inputident = 0;
-
+    const fileName = document.createElement('label');
+    fn = upload.value.split('\\');
+    fileName.innerText = fn[fn.length-1];
+    fileName.className = 'fileName';
+    content.appendChild(fileName);
+    
+    const dataWrap = document.createElement('div');
+    dataWrap.className = 'dataWrap';
     for(const key in data) {
         if(data.hasOwnProperty(key)) {
             const bracket = document.createElement('div');
             bracket.className = 'bracket';
 
             const label = document.createElement('label');
-            label.innerText = key + ': ';
+            label.innerText = key + ' ';
 
             const input = document.createElement('input');
             input.type = 'text';
@@ -29,17 +36,17 @@ function displayData(data) {
 
             bracket.appendChild(label);
             bracket.appendChild(input);
-            content.appendChild(bracket);
+            dataWrap.appendChild(bracket);
         }
-        //inputident++;
     }
+    content.appendChild(dataWrap);
+    addContentFooter();
 }
 
 function fetchJson(e) {
     content.innerHTML = '';
-    addContentFooter();
 
-    const file = input.files[0];
+    const file = upload.files[0];
     const reader = new FileReader();
 
     reader.onload = function() {
@@ -60,5 +67,5 @@ function fetchJson(e) {
     reader.readAsText(file);
 }
 
-const input = document.querySelector('input[type="file"]');
-input.addEventListener('change', e => fetchJson(e.target));
+const upload = document.querySelector('input[type="file"]');
+upload.addEventListener('change', e => fetchJson(e.target));

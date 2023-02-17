@@ -20,7 +20,7 @@ header {
 
 header button {
     font-weight: 400;
-    font-size: 25px;
+    font-size: 40px;
     color: #373737;
     text-decoration: none;
     color: black;
@@ -31,7 +31,6 @@ header button {
 }
 
 .wrapper {
-    font-size: 20px;
     width: 80%;
     padding: 15px;
     margin-left: 10%;
@@ -40,6 +39,7 @@ header button {
 }
 
 .wrapheader {
+    font-size: 30px;
     display: flex;
     justify-content: space-between;
 }
@@ -48,7 +48,14 @@ header button {
     padding-bottom: 25px;
 }
 
-.content {
+.fileName {
+    font-size: 25px;
+    padding-top: 20px;
+    padding-bottom: 5px;
+}
+
+.dataWrap {
+    font-size: 20px;
     margin-left: 5%;
     margin-right: 5%;
     width: 90%;
@@ -74,4 +81,19 @@ header button {
     display: flex;
     padding-top: 10px;
     justify-content: space-between;
+}
+
+.contentFooter {
+    padding-top: 25px;
+    text-align: right;
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
+}
+
+.contentFooter button{
+    padding: 5px;
+    border: none;
+    background: #e8e8e8;
+    margin-right: 50px;
 }
