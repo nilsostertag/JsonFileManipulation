@@ -45,7 +45,6 @@ function addContentFooter() {
     document.getElementById("btn_download").addEventListener("click", function() {
         downloadFile(parseData());
     });
-    //btnDownload.onclick = downloadFile(parseData);
 }
 
 function displayData(data) {
