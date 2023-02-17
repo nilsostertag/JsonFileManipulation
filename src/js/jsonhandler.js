@@ -1,12 +1,36 @@
 const content = document.querySelector('.content');
 
+function parseData() {
+    const dataFields = document.querySelector('.dataWrap');
+    const keyArray = Array.from(dataFields.querySelectorAll('label'));
+    const valArray = Array.from(dataFields.querySelectorAll('input'));
+    //console.log(keyArray);
+    //console.log(valArray);
+
+    let dataset = {};
+    let key;
+    let val;
+    for(let i = 0; i < keyArray.length; i++) {
+        key = keyArray[i].innerText;
+        val = valArray[i].value;
+        
+        dataset[key] = val;
+    }
+
+    console.log(dataset);
+}
+
+function downloadFile(dataset) {
+    
+}
+
 function addContentFooter() {
     const contentFooter = document.createElement('div');
     contentFooter.className = 'contentFooter';
 
     const btnDownload = document.createElement('button');
     btnDownload.textContent = 'Download';
-    btnDownload.onclick = '';
+    //btnDownload.addEventListener('click', parseData());
 
     contentFooter.appendChild(btnDownload);
     content.appendChild(contentFooter);
@@ -28,11 +52,12 @@ function displayData(data) {
 
             const label = document.createElement('label');
             label.innerText = key + ' ';
+            label.id = "key~" + key.toString();
 
             const input = document.createElement('input');
             input.type = 'text';
             input.value = data[key];
-            input.id = "val_" + key.toString();
+            input.id = "val~" + key.toString();
 
             bracket.appendChild(label);
             bracket.appendChild(input);
