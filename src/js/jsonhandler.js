@@ -4,8 +4,6 @@ function parseData() {
     const dataFields = document.querySelector('.dataWrap');
     const keyArray = Array.from(dataFields.querySelectorAll('label'));
     const valArray = Array.from(dataFields.querySelectorAll('input'));
-    //console.log(keyArray);
-    //console.log(valArray);
 
     let dataset = {};
     let key;
@@ -13,27 +11,38 @@ function parseData() {
     for(let i = 0; i < keyArray.length; i++) {
         key = keyArray[i].innerText;
         val = valArray[i].value;
-        
         dataset[key] = val;
     }
-
-    console.log(dataset);
+    return dataset;
 }
 
 function downloadFile(dataset) {
-    
+    fn = upload.value.split('\\');
+    filename = fn[fn.length-1];
+    const jsonStr = JSON.stringify(dataset, null);
+    const dataStr = "data:text/json;charset=utf-8" + encodeURIComponent(jsonStr);
+    var downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", filename);
+    document.body.appendChild(downloadAnchor);  //required for Firefox
+    downloadAnchor.click();
+    downloadAnchor.remove();
 }
 
 function addContentFooter() {
     const contentFooter = document.createElement('div');
     contentFooter.className = 'contentFooter';
-
     const btnDownload = document.createElement('button');
     btnDownload.textContent = 'Download';
-    //btnDownload.addEventListener('click', parseData());
-
+    btnDownload.id = "btn_download";
+    
     contentFooter.appendChild(btnDownload);
     content.appendChild(contentFooter);
+
+    document.getElementById("btn_download").addEventListener("click", function() {
+        downloadFile(parseData());
+    });
+    //btnDownload.onclick = downloadFile(parseData);
 }
 
 function displayData(data) {
@@ -49,11 +58,9 @@ function displayData(data) {
         if(data.hasOwnProperty(key)) {
             const bracket = document.createElement('div');
             bracket.className = 'bracket';
-
             const label = document.createElement('label');
             label.innerText = key + ' ';
             label.id = "key~" + key.toString();
-
             const input = document.createElement('input');
             input.type = 'text';
             input.value = data[key];
