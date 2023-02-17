@@ -19,6 +19,8 @@ header {
 }
 
 header button {
+    margin-top: 10px;
+    margin-left: 10px;
     font-weight: 400;
     font-size: 40px;
     color: #373737;
@@ -27,6 +29,12 @@ header button {
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease 0s;
+}
+
+header img {
+    float: left;
+    width: 60px;
+    height: 60px;
 }
 
 .wrapper {
