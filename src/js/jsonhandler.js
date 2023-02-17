@@ -19,14 +19,17 @@ function parseData() {
 function downloadFile(dataset) {
     fn = upload.value.split('\\');
     filename = fn[fn.length-1];
-    const jsonStr = JSON.stringify(dataset, null);
-    const dataStr = "data:text/json;charset=utf-8" + encodeURIComponent(jsonStr);
-    var downloadAnchor = document.createElement('a');
-    downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute("download", filename);
-    document.body.appendChild(downloadAnchor);  //required for Firefox
-    downloadAnchor.click();
-    downloadAnchor.remove();
+    const jsonBlob = new Blob([JSON.stringify(dataset, null, 2)], {type: 'application/json'});
+    const jsonUrl = URL.createObjectURL(jsonBlob);
+
+    const link = document.createElement('a');
+    link.href = jsonUrl;
+    link.download = filename.toString();
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(jsonUrl);
 }
 
 function addContentFooter() {
@@ -84,7 +87,6 @@ function fetchJson(e) {
     reader.onload = function() {
         try{
             const data = JSON.parse(reader.result);
-            console.log(data);
             try{
                 displayData(data);
             } catch(error) {
