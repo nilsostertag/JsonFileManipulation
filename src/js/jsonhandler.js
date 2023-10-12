@@ -89,12 +89,13 @@ function fetchJson(e) {
             try{
                 displayData(data);
             } catch(error) {
-                console.log('Error: Failed to display Json data.')
+                console.log('Error: Failed to display Json data.');
+                alert('Error: Failed to display Json data.')
             }
             
         } catch(error) {
             console.error('Error: The uploaded file is not in Json format.');
-            //alert('Error: The uploaded file is not in Json format.')
+            alert('Error: The uploaded file is not in Json format.');
         }
     };
     reader.readAsText(file);
