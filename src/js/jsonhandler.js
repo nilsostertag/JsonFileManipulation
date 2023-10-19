@@ -47,6 +47,22 @@ function addContentFooter() {
     });
 }
 
+function isMultidimensional(obj) {
+    if (typeof obj !== 'object' || obj === null) {
+        console.log(obj + " - data is not multidimensional");
+        return false;
+    }
+
+    for (const key in obj) {
+      if (typeof obj[key] === 'object' && obj[key] !== null) {
+        console.log(obj + " - data is multidimensional")
+        return true;
+      }
+    }
+
+    return false;
+  }
+
 function displayData(data) {
     const fileName = document.createElement('label');
     fn = upload.value.split('\\');
@@ -57,11 +73,12 @@ function displayData(data) {
     const dataWrap = document.createElement('div');
     dataWrap.className = 'dataWrap';
     for(const key in data) {
+        isMultidimensional(data[key]);
         if(data.hasOwnProperty(key)) {
             const bracket = document.createElement('div');
             bracket.className = 'bracket';
             const label = document.createElement('label');
-            label.innerText = key + ' ';
+            label.innerText = key + " (" + typeof(key) + ")";
             label.id = "key~" + key.toString();
             const input = document.createElement('input');
             input.type = 'text';
@@ -73,6 +90,7 @@ function displayData(data) {
             dataWrap.appendChild(bracket);
         }
     }
+
     content.appendChild(dataWrap);
     addContentFooter();
 }
@@ -87,6 +105,7 @@ function fetchJson(e) {
         try{
             const data = JSON.parse(reader.result);
             try{
+                //isMultidimensional(data);
                 displayData(data);
             } catch(error) {
                 console.log('Error: Failed to display Json data.');
